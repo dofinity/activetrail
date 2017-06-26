@@ -1,0 +1,23 @@
+{
+    "name": "dofinity/activetrail",
+    "type": "library",
+    "description": "PHP Library for integrating the ActiveTrail marketing platform",
+    "keywords": ["PHP", "email", "marketing", "commerce"],
+    "homepage": "http://dofinity.com/modules/activetrail",
+    "license": "GPL2",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "authors": [
+        {
+            "name": "Peleg Rabinowitz",
+            "email": "peleg@dofinity.com",
+            "homepage": "https://github.com/dofinity"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Activetrail\\": "src/Activetrail"
+        }
+    }
+}
