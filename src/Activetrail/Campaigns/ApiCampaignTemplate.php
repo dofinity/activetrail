@@ -1,5 +1,5 @@
 <?php
-class Template
+class ApiCampaignTemplate
 {
   public $id; //int
 }

@@ -1,6 +1,6 @@
 <?php
 class ApiEcommerceData
 {
-  public $products; //Products
-  public $recommendations; //Recommendations
+  public $products; //ApiProducts
+  public $recommendations; //ApiRecommendations
 }

@@ -1,5 +1,5 @@
 <?php
-class Details
+class ApiCampaignDetails
 {
   public $name; //String
   public $subject; //String

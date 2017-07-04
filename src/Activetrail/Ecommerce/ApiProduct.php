@@ -1,9 +1,9 @@
 <?php
-class Product
+class ApiProduct
 {
   public $id; //int
-  public $real_price; //RealPrice
-  public $new_price; //NewPrice
+  public $real_price; //ApiAmount
+  public $new_price; //ApiAmount
   public $title; //String
   public $description; //String
   public $additional_txt_1; //String
