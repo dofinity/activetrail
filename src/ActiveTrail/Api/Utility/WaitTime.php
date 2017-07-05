@@ -1,4 +1,7 @@
 <?php
+
+namespace ActiveTrail\Api\Utility;
+
 class WaitTime
 {
   public $interval_type; //String

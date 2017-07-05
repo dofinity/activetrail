@@ -1,5 +1,7 @@
 <?php
 
+namespace ActiveTrail\Api\Utility;
+
 abstract class SystemLanguageType {
 
   const IBM_EBCDIC_US_Canada = 1;

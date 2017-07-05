@@ -1,4 +1,7 @@
 <?php
+
+namespace ActiveTrail\Api\Ecommerce;
+
 class ApiProduct
 {
   public $id; //int

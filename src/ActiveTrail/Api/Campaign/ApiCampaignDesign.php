@@ -1,4 +1,7 @@
 <?php
+
+namespace ActiveTrail\Api\Campaign;
+
 class ApiCampaignDesign
 {
   public $content; //String

@@ -1,4 +1,7 @@
 <?php
+
+namespace ActiveTrail\Api\Campaign;
+
 class ApiABSettings
 {
   public $scheduling; //ApiCampaignScheduling
@@ -7,6 +10,6 @@ class ApiABSettings
   public $google_analytics_name; //String
   public $ab_percent_split_groups; //double
   public $wait_time; //WaitTime
-  public $winning_version_by; //String
-  public $design; //
+  public $winning_version_by; //WinningVersionByType
+  public $design; //ApiCampaignDesign
 }

@@ -1,4 +1,7 @@
 <?php
+
+namespace ActiveTrail\Api\Ecommerce;
+
 class ApiProducts
 {
   public $object_url; //String

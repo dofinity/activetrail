@@ -1,4 +1,7 @@
 <?php
+
+namespace ActiveTrail\Api\Campaign;
+
 class ApiCampaignRestrictionsSegment
 {
   public $limit_amount; //int
