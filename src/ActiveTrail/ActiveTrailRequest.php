@@ -6,8 +6,12 @@ namespace ActiveTrail;
 
 class ActiveTrailRequest implements \JsonSerializable {
 
-  protected $campaign_payload;
+  protected $payload;
 
+
+  public function getApiCampaignContactPost() {
+
+  }
 
   /**
    * Return JSON serialized data

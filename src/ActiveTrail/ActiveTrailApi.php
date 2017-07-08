@@ -2,57 +2,60 @@
 /**
  * @file ActiveTrail main API class, allow to create and send campaigns, get and set templates.
  */
-namespace Activetrail;
+namespace ActiveTrail;
+use ActiveTrail\Api\Campaign\ApiCampaignContactPost;
+use ActiveTrail\Api\Campaign\ApiCampaignUpdateContainer;
+use ActiveTrail\Rest\EndPoints;
+use ActiveTrail\Rest\HttpClient;
 
-use Activetrail\ActiveTrailRequest;
-use GuzzleHttp\Client;
 
-class ActiveTrailApi {
+class ActiveTrailApi implements ActiveTrailApiInterface {
 
-  const API_BASE_URI = 'https://webapi.mymarketing.co.il/api/';
-  const CONNECTION_TIMEOUT = 5;
-  const REQUEST_TIMEOUT = 10;
-  private $ActiveTrailRequest;
+  private $client;
+
 
   /**
    * ActiveTrailApi constructor.
-   * @param $ActiveTrailRequest
+   * @param $apiToken
    */
-  public function __construct(ActiveTrailRequest $ActiveTrailRequest) {
-    $this->ActiveTrailRequest = $ActiveTrailRequest;
+  public function __construct($apiToken) {
+    $this->client = new HttpClient($apiToken);
   }
 
 
   /**
-   * Submits a payment request and receives back an iframe URL, a confirmation key, and possible errors.
-   *
-   *
+   * Create and Send a new campaign To specific contacts
    */
-  public function CreateCampaign() {
-
-    //ERP Post call
-/*    $client = new Client(['base_uri' => self::API_BASE_URI]);
+  public function SendNewCampaignToContacts() {
 
 
-    $response = $client->post(self::API_BASE_URI,
-      [
-        'json' => json_encode($this->ActiveTrailRequest),
-        'connect_timeout' => self::CONNECTION_TIMEOUT,
-        'timeout' => self::REQUEST_TIMEOUT
-      ]
-    );*/
+    new ApiCampaignUpdateContainer();
 
-    //Extract the contents from the response.
-    //return $response->getBody()->getContents();
+    //Create payload.
+    $payload = new ApiCampaignContactPost();
+
+    //Make the Api Call.
+    $this->client->MakeActiveTrailApiCall(
+      EndPoints::CAMPAIGNS_CONTACTS['uri'],
+      EndPoints::CAMPAIGNS_CONTACTS['method'],
+      $payload
+    );
+
+
   }
 
-  /**
-   * TBD
-   */
+
+  public function CreateNewCampaign() {
+    // TODO: Implement CreateNewCampaign() method.
+  }
+
   public function CreateSMSCampaign() {
-
+    // TODO: Implement CreateSMSCampaign() method.
   }
 
+  public function GetMyTemplates() {
+    // TODO: Implement GetMyTemplates() method.
+  }
 
 
 }

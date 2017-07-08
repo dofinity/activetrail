@@ -2,6 +2,8 @@
 
 namespace ActiveTrail\Api\Campaign;
 
+use ActiveTrail\Api\Contact\ApiCampaignContact;
+
 /**
  * Class ApiCampaignContactPost
  *
@@ -14,4 +16,15 @@ class ApiCampaignContactPost {
   private $campaign; //ApiCampaignUpdateContainer
   private $campaign_contacts; //ApiCampaignContact
 
+  /**
+   * ApiCampaignContactPost constructor.
+   * @param $campaign
+   * @param $campaign_contacts
+   */
+  public function __construct(ApiCampaignUpdateContainer $campaign = null, ApiCampaignContact $campaign_contacts = null) {
+    $this->campaign = $campaign;
+    $this->campaign_contacts = $campaign_contacts;
+  }
+
 }
+

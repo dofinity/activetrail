@@ -24,8 +24,8 @@ class ApiCampaignUpdateContainer {
    * @param $carts
    * @param $pairs
    */
-  public function __construct($send_test, ApiCampaignDetails $details, ApiCampaignDesign $design, ApiCampaignTemplate $template,
-                              ApiABSettings $a_b_settings, ApiEcommerceDataList $carts, $pairs) {
+  public function __construct(ApiCampaignDetails $details, $send_test = null, ApiCampaignDesign $design = null, ApiCampaignTemplate $template = null,
+                              ApiABSettings $a_b_settings = null, ApiEcommerceDataList $carts = null, $pairs = null) {
     $this->send_test = $send_test;
     $this->details = $details;
     $this->design = $design;

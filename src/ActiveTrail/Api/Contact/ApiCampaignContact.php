@@ -1,11 +1,7 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: peleg
- * Date: 05/07/2017
- * Time: 05:31
- */
+namespace ActiveTrail\Api\Contact;
+
 class ApiCampaignContact {
 
   private $contacts_ids; // Collection of int
