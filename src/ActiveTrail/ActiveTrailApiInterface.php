@@ -2,15 +2,21 @@
 
 namespace ActiveTrail;
 
+use ActiveTrail\Api\Campaign\ApiCampaignContactPost;
 
 interface ActiveTrailApiInterface {
 
-  public function SendNewCampaignToContacts();
-
+  // Campaigns
+  public function SendNewCampaignToContacts(ApiCampaignContactPost $payload);
   public function CreateNewCampaign();
 
-  public function CreateSMSCampaign();
+  // Contacts
+  public function CreateContact();
 
+  // Templates
   public function GetMyTemplates();
+
+  // SMS Campaigns
+  public function CreateSMSCampaign();
 
 }
