@@ -3,6 +3,7 @@
 namespace ActiveTrail\Api\Campaign;
 
 use ActiveTrail\Api\Contact\ApiCampaignContact;
+use ActiveTrail\JsonSerializableStruct;
 
 /**
  * Class ApiCampaignContactPost
@@ -11,10 +12,10 @@ use ActiveTrail\Api\Contact\ApiCampaignContact;
  *
  * @package ActiveTrail\Api\Campaign
  */
-class ApiCampaignContactPost {
+class ApiCampaignContactPost extends JsonSerializableStruct {
 
-  private $campaign; //ApiCampaignUpdateContainer
-  private $campaign_contacts; //ApiCampaignContact
+  protected $campaign; //ApiCampaignUpdateContainer
+  protected $campaign_contacts; //ApiCampaignContact
 
   /**
    * ApiCampaignContactPost constructor.

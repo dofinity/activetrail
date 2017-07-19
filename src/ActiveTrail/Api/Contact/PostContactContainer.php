@@ -2,65 +2,67 @@
 
 namespace ActiveTrail\Api\Contact;
 
+use ActiveTrail\JsonSerializableStruct;
+
 /**
  * Class PostContactContainer
  * @package ActiveTrail\Api\Contact
  * @todo: abstract jsonSerialize + null filtering
  */
-class PostContactContainer implements \JsonSerializable {
+class PostContactContainer extends JsonSerializableStruct  {
 
-  public $subscribe_ip; //String
-  public $status; //String
-  public $double_optin; //DoubleOptin
-  public $email; //String
-  public $sms; //String
-  public $first_name; //String
-  public $last_name; //String
-  public $anniversary; //Date
-  public $birthday; //Date
-  public $city; //String
-  public $fax; //String
-  public $phone1; //String
-  public $phone2; //String
-  public $street; //String
-  public $zip_code; //String
-  public $ext1; //String
-  public $ext2; //String
-  public $ext3; //String
-  public $ext4; //String
-  public $ext5; //String
-  public $ext6; //String
-  public $ext7; //String
-  public $ext8; //String
-  public $ext9; //String
-  public $ext10; //String
-  public $ext11; //String
-  public $ext12; //String
-  public $ext13; //String
-  public $ext14; //String
-  public $ext15; //String
-  public $ext16; //String
-  public $ext17; //String
-  public $ext18; //String
-  public $ext19; //String
-  public $ext20; //String
-  public $ext21; //String
-  public $ext22; //String
-  public $ext23; //String
-  public $ext24; //String
-  public $ext25; //String
-  public $date1; //Date
-  public $date2; //Date
-  public $date3; //Date
-  public $date4; //Date
-  public $date5; //Date
-  public $num1; //int
-  public $num2; //int
-  public $num3; //int
-  public $num4; //int
-  public $num5; //int
-  public $is_do_not_mail; //boolean
-  public $is_deleted;
+  protected $subscribe_ip; //String
+  protected $status; //String
+  protected $double_optin; //DoubleOptin
+  protected $email; //String
+  protected $sms; //String
+  protected $first_name; //String
+  protected $last_name; //String
+  protected $anniversary; //Date
+  protected $birthday; //Date
+  protected $city; //String
+  protected $fax; //String
+  protected $phone1; //String
+  protected $phone2; //String
+  protected $street; //String
+  protected $zip_code; //String
+  protected $ext1; //String
+  protected $ext2; //String
+  protected $ext3; //String
+  protected $ext4; //String
+  protected $ext5; //String
+  protected $ext6; //String
+  protected $ext7; //String
+  protected $ext8; //String
+  protected $ext9; //String
+  protected $ext10; //String
+  protected $ext11; //String
+  protected $ext12; //String
+  protected $ext13; //String
+  protected $ext14; //String
+  protected $ext15; //String
+  protected $ext16; //String
+  protected $ext17; //String
+  protected $ext18; //String
+  protected $ext19; //String
+  protected $ext20; //String
+  protected $ext21; //String
+  protected $ext22; //String
+  protected $ext23; //String
+  protected $ext24; //String
+  protected $ext25; //String
+  protected $date1; //Date
+  protected $date2; //Date
+  protected $date3; //Date
+  protected $date4; //Date
+  protected $date5; //Date
+  protected $num1; //int
+  protected $num2; //int
+  protected $num3; //int
+  protected $num4; //int
+  protected $num5; //int
+  protected $is_do_not_mail; //boolean
+  protected $is_deleted;
 
   /**
    * PostContactContainer constructor.
@@ -69,18 +71,5 @@ class PostContactContainer implements \JsonSerializable {
   public function __construct($email) {
     $this->email = $email;
   } //boolean
-
-  /**
-   * Return JSON serialized data
-   * @return array
-   */
-  public function jsonSerialize() {
-
-    $object = array_filter(get_object_vars($this), function ($val) {
-      return !is_null($val);
-    });
-
-    return $object;
-  }
 
 }

@@ -2,14 +2,16 @@
 
 namespace ActiveTrail\Api\Campaign;
 
-class ApiABSettings
+use ActiveTrail\JsonSerializableStruct;
+
+class ApiABSettings extends JsonSerializableStruct
 {
-  public $scheduling; //ApiCampaignScheduling
-  public $subject; //String
-  public $user_profile_id; //int
-  public $google_analytics_name; //String
-  public $ab_percent_split_groups; //double
-  public $wait_time; //WaitTime
-  public $winning_version_by; //WinningVersionByType
-  public $design; //ApiCampaignDesign
+  protected $scheduling; //ApiCampaignScheduling
+  protected $subject; //String
+  protected $user_profile_id; //int
+  protected $google_analytics_name; //String
+  protected $ab_percent_split_groups; //double
+  protected $wait_time; //WaitTime
+  protected $winning_version_by; //WinningVersionByType
+  protected $design; //ApiCampaignDesign
 }

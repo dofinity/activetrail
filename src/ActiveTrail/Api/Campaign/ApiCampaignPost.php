@@ -10,8 +10,8 @@ use ActiveTrail\Api\Ecommerce\ApiEcommerceDataList;
  */
 class ApiCampaignPost extends ApiCampaignUpdateContainer
 {
-  public $scheduling; //ApiCampaignScheduling
-  public $segment; //ApiCampaignRestrictionsSegment
+  protected $scheduling; //ApiCampaignScheduling
+  protected $segment; //ApiCampaignRestrictionsSegment
 
   /**
    * ApiCampaignPost constructor.
