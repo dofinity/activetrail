@@ -20,4 +20,7 @@ abstract class EndPoints {
   //Templates
   public static $TEMPLATES = ['method' => 'get', 'uri' => 'templates']; //Get all of your templates that are saved in "My templates"
 
+  //Contacts
+  public static $CONTACTS = ['method' => 'post', 'uri' => 'contacts']; //Get all of your templates that are saved in "My templates"
+
 }

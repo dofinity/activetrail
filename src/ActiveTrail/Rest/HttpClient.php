@@ -38,16 +38,15 @@ class HttpClient {
 
     $client = new Client([ 'base_uri' => EndPoints::$API_BASE['uri'] ]);
 
-    $request = $client->request($method, $endpoint, [
-      'json' => json_encode($payload),
+    $response = $client->request($method, $endpoint, [
+      'json' => $payload,
       'connect_timeout' => self::CONNECTION_TIMEOUT,
       'timeout' => self::REQUEST_TIMEOUT,
-      'auth' => [ null, $this->apiToken ] // Add Authorization header based on token
+      'headers' => [ 'Authorization' => 'Basic ' . $this->apiToken ] // Add Authorization header based on token
     ]);
 
-    $response = $client->send($request);
     //Extract the contents from the response.
-    return $response->getBody()->getContents();
+    return json_decode($response->getBody()->getContents());
 
   }
 }

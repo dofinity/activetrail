@@ -3,6 +3,7 @@
 namespace ActiveTrail;
 
 use ActiveTrail\Api\Campaign\ApiCampaignContactPost;
+use ActiveTrail\Api\Contact\PostContactContainer;
 
 interface ActiveTrailApiInterface {
 
@@ -11,7 +12,7 @@ interface ActiveTrailApiInterface {
   public function CreateNewCampaign();
 
   // Contacts
-  public function CreateContact();
+  public function CreateContact(PostContactContainer $contact);
 
   // Templates
   public function GetMyTemplates();

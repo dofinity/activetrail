@@ -4,14 +4,16 @@
  */
 namespace ActiveTrail;
 use ActiveTrail\Api\Campaign\ApiCampaignContactPost;
+use ActiveTrail\Api\Contact\PostContactContainer;
 use ActiveTrail\Rest\EndPoints;
 use ActiveTrail\Rest\HttpClient;
 
 
 class ActiveTrailApi implements ActiveTrailApiInterface {
 
+  use ActiveTrailRequestBuilder;
+  
   private $client;
-
 
   /**
    * ActiveTrailApi constructor.
@@ -30,7 +32,7 @@ class ActiveTrailApi implements ActiveTrailApiInterface {
   public function SendNewCampaignToContacts(ApiCampaignContactPost $payload) {
 
     //Make the Api Call.
-    $this->client->MakeActiveTrailApiCall(
+    return $this->client->MakeActiveTrailApiCall(
       EndPoints::$CAMPAIGNS_CONTACTS['uri'],
       EndPoints::$CAMPAIGNS_CONTACTS['method'],
       $payload
@@ -51,8 +53,18 @@ class ActiveTrailApi implements ActiveTrailApiInterface {
     // TODO: Implement GetMyTemplates() method.
   }
 
-  public function CreateContact() {
-    // TODO: Implement CreateContact() method.
+  /**
+   * Create and return a new contact (or existing one if already exists)
+   *
+   * @param \ActiveTrail\Api\Contact\PostContactContainer $contact
+   */
+  public function CreateContact(PostContactContainer $contact) {
+    //Make the Api Call.
+    return $this->client->MakeActiveTrailApiCall(
+      EndPoints::$CONTACTS['uri'],
+      EndPoints::$CONTACTS['method'],
+      $contact
+    );
   }
 
 

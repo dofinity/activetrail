@@ -2,8 +2,12 @@
 
 namespace ActiveTrail\Api\Contact;
 
-
-class PostContactContainer {
+/**
+ * Class PostContactContainer
+ * @package ActiveTrail\Api\Contact
+ * @todo: abstract jsonSerialize + null filtering
+ */
+class PostContactContainer implements \JsonSerializable {
 
   public $subscribe_ip; //String
   public $status; //String
@@ -56,6 +60,27 @@ class PostContactContainer {
   public $num4; //int
   public $num5; //int
   public $is_do_not_mail; //boolean
-  public $is_deleted; //boolean
-  
+  public $is_deleted;
+
+  /**
+   * PostContactContainer constructor.
+   * @param $email
+   */
+  public function __construct($email) {
+    $this->email = $email;
+  } //boolean
+
+  /**
+   * Return JSON serialized data
+   * @return array
+   */
+  public function jsonSerialize() {
+
+    $object = array_filter(get_object_vars($this), function ($val) {
+      return !is_null($val);
+    });
+
+    return $object;
+  }
+
 }
