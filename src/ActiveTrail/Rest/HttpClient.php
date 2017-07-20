@@ -52,5 +52,6 @@ class HttpClient {
     return $client->request($method, $endpoint, $request_options);
 
   }
+
 }
 

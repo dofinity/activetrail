@@ -28,7 +28,7 @@ class ApiCampaignPost extends ApiCampaignUpdateContainer
   public function __construct(ApiCampaignScheduling $scheduling, ApiEcommerceDataList $carts, array $pairs, ApiCampaignRestrictionsSegment $segment,
                               $send_test, ApiCampaignDetails $details, ApiCampaignDesign $design, ApiCampaignTemplate $template, ApiABSettings $a_b_settings) {
     // Call parent constructor first
-    parent::__construct($send_test, $details, $design, $template, $a_b_settings, $carts, $pairs);
+    parent::__construct($details, $send_test, $design, $template, $a_b_settings, $carts, $pairs);
     // Set additional parameters
     $this->scheduling = $scheduling;
     $this->segment = $segment;

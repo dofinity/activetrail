@@ -9,7 +9,7 @@ use ActiveTrail\Api\Contact\PostContactContainer;
  * Class EmailCampaignInterface
  * @package ActiveTrail
  */
-interface EmailCampaignInterface {
+interface EmailCampaignInterface extends CampaignInterface {
 
   // Campaigns
   public function SendNewCampaignToContacts(ApiCampaignContactPost $payload);
