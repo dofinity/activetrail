@@ -35,8 +35,8 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
 
   public function GetMyTemplates() {
     return $this->client->MakeActiveTrailApiCall(
-      EndPoints::$CAMPAIGNS_CONTACTS['uri'],
-      EndPoints::$CAMPAIGNS_CONTACTS['method']
+      EndPoints::$TEMPLATES['uri'],
+      EndPoints::$TEMPLATES['method']
     );
   }
 
