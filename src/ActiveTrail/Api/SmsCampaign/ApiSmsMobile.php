@@ -4,9 +4,9 @@ namespace ActiveTrail\Api\SmsCampaign;
 
 use ActiveTrail\JsonSerializableStruct;
 
-class ApiSMSMobile extends JsonSerializableStruct {
+class ApiSmsMobile extends JsonSerializableStruct {
 
-  public $phone_number; //String
+  protected $phone_number; //String
 
   /**
    * ApiSMSMobile constructor.

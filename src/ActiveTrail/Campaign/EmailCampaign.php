@@ -4,9 +4,12 @@ namespace ActiveTrail\Campaign;
 
 use ActiveTrail\Api\Campaign\ApiCampaignContactPost;
 use ActiveTrail\Api\Campaign\ApiCampaignDetails;
+use ActiveTrail\Api\Campaign\ApiCampaignPost;
+use ActiveTrail\Api\Campaign\ApiCampaignScheduling;
 use ActiveTrail\Api\Campaign\ApiCampaignUpdateContainer;
 use ActiveTrail\Api\Contact\PostContactContainer;
 use ActiveTrail\Api\Contact\ApiCampaignContact;
+use ActiveTrail\Api\Ecommerce\ApiEcommerceDataList;
 use ActiveTrail\EmailCampaignInterface;
 use ActiveTrail\Rest\EndPoints;
 use ActiveTrail\CampaignBase;
@@ -16,6 +19,22 @@ use ActiveTrail\CampaignBase;
  * @package ActiveTrail\Campaign
  */
 class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
+
+  /**
+   * EmailCampaign constructor.
+   * @param $apiToken
+   */
+  public function __construct($apiToken) {
+    parent::__construct($apiToken, EndPoints::$CAMPAIGNS);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getCampaign() {
+    // TODO: Implement getCampaign() method.
+    return NULL;
+  }
 
   /**
    * Create and Send a new campaign To specific contacts
