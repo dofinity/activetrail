@@ -7,8 +7,8 @@ use ActiveTrail\JsonSerializableStruct;
 class ApiCampaignContact extends JsonSerializableStruct
 {
 
-  protected $contacts_ids; // Collection of int
-  protected $contacts_emails; // Collection of string
+  public $contacts_ids; // Collection of int
+  public $contacts_emails; // Collection of string
 
   /**
    * ApiCampaignContact constructor.

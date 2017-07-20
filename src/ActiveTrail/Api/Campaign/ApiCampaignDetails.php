@@ -6,15 +6,15 @@ use ActiveTrail\JsonSerializableStruct;
 
 class ApiCampaignDetails extends JsonSerializableStruct
 {
-  protected $name; //String
-  protected $subject; //String
-  protected $user_profile_id; //int
-  protected $google_analytics_name; //String
-  protected $sub_account_id; //int
-  protected $content_category_id; //int
-  protected $preheader; //String
-  protected $predictive_delivery; //boolean
-  protected $segmentation_id;
+  public $name; //String
+  public $subject; //String
+  public $user_profile_id; //int
+  public $google_analytics_name; //String
+  public $sub_account_id; //int
+  public $content_category_id; //int
+  public $preheader; //String
+  public $predictive_delivery; //boolean
+  public $segmentation_id;
 
   /**
    * ApiCampaignDetails constructor.

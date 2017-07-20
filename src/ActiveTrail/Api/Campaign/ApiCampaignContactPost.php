@@ -14,8 +14,8 @@ use ActiveTrail\JsonSerializableStruct;
  */
 class ApiCampaignContactPost extends JsonSerializableStruct {
 
-  protected $campaign; //ApiCampaignUpdateContainer
-  protected $campaign_contacts; //ApiCampaignContact
+  public $campaign; //ApiCampaignUpdateContainer
+  public $campaign_contacts; //ApiCampaignContact
 
   /**
    * ApiCampaignContactPost constructor.

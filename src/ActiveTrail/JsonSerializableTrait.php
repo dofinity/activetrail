@@ -4,7 +4,7 @@ namespace ActiveTrail;
 
 /**
  * Trait JsonSerializableTrait
- * 
+ *
  * @package ActiveTrail
  */
 trait JsonSerializableTrait {

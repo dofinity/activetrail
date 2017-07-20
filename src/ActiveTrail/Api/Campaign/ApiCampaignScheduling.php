@@ -4,7 +4,7 @@ namespace ActiveTrail\Api\Campaign;
 
 class ApiCampaignScheduling
 {
-  protected $is_sent; //boolean
-  protected $scheduled_date_utc; //Date
-  protected $is_limit_to_confirmed; //boolean
+  public $is_sent; //boolean
+  public $scheduled_date_utc; //Date
+  public $is_limit_to_confirmed; //boolean
 }

@@ -7,13 +7,13 @@ use ActiveTrail\JsonSerializableStruct;
 
 class ApiCampaignUpdateContainer extends JsonSerializableStruct {
 
-  protected $send_test; //String, Email addresses, you need to separated by comma(,).
-  protected $details; //ApiCampaignDetails
-  protected $design; //ApiCampaignDesign
-  protected $template; //ApiCampaignTemplate
-  protected $a_b_settings; //ApiABSettings
-  protected $carts; //ApiEcommerceDataList
-  protected $pairs; //array(Pair)
+  public $send_test; //String, Email addresses, you need to separated by comma(,).
+  public $details; //ApiCampaignDetails
+  public $design; //ApiCampaignDesign
+  public $template; //ApiCampaignTemplate
+  public $a_b_settings; //ApiABSettings
+  public $carts; //ApiEcommerceDataList
+  public $pairs; //array(Pair)
 
   /**
    * ApiCampaignUpdateContainer constructor.

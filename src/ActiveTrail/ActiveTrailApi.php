@@ -57,6 +57,7 @@ class ActiveTrailApi implements ActiveTrailApiInterface {
    * Create and return a new contact (or existing one if already exists)
    *
    * @param \ActiveTrail\Api\Contact\PostContactContainer $contact
+   * @return string
    */
   public function CreateContact(PostContactContainer $contact) {
     //Make the Api Call.
@@ -66,6 +67,5 @@ class ActiveTrailApi implements ActiveTrailApiInterface {
       $contact
     );
   }
-
 
 }
