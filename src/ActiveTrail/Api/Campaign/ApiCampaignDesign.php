@@ -2,7 +2,9 @@
 
 namespace ActiveTrail\Api\Campaign;
 
-class ApiCampaignDesign
+use ActiveTrail\JsonSerializableStruct;
+
+class ApiCampaignDesign extends JsonSerializableStruct
 {
   public $content; //String
   public $language_type; //SystemLanguageType
