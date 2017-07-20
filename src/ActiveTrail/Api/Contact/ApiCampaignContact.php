@@ -11,13 +11,33 @@ class ApiCampaignContact extends JsonSerializableStruct
   public $contacts_emails; // Collection of string
 
   /**
-   * ApiCampaignContact constructor.
-   * @param $contacts_ids
-   * @param $contacts_emails
+   * @return mixed
    */
-  public function __construct(array $contacts_ids, array $contacts_emails) {
+  public function getContactsIds() {
+    return $this->contacts_ids;
+  }
+
+  /**
+   * @param mixed $contacts_ids
+   */
+  public function setContactsIds($contacts_ids) {
     $this->contacts_ids = $contacts_ids;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getContactsEmails() {
+    return $this->contacts_emails;
+  }
+
+  /**
+   * @param mixed $contacts_emails
+   */
+  public function setContactsEmails($contacts_emails) {
     $this->contacts_emails = $contacts_emails;
   }
+
+
 
 }

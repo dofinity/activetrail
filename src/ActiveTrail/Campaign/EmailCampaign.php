@@ -2,10 +2,11 @@
 
 namespace ActiveTrail\Campaign;
 
+use ActiveTrail\Api\Campaign\ApiABSettings;
 use ActiveTrail\Api\Campaign\ApiCampaignContactPost;
+use ActiveTrail\Api\Campaign\ApiCampaignDesign;
 use ActiveTrail\Api\Campaign\ApiCampaignDetails;
-use ActiveTrail\Api\Campaign\ApiCampaignPost;
-use ActiveTrail\Api\Campaign\ApiCampaignScheduling;
+use ActiveTrail\Api\Campaign\ApiCampaignTemplate;
 use ActiveTrail\Api\Campaign\ApiCampaignUpdateContainer;
 use ActiveTrail\Api\Contact\PostContactContainer;
 use ActiveTrail\Api\Contact\ApiCampaignContact;
@@ -13,6 +14,7 @@ use ActiveTrail\Api\Ecommerce\ApiEcommerceDataList;
 use ActiveTrail\EmailCampaignInterface;
 use ActiveTrail\Rest\EndPoints;
 use ActiveTrail\CampaignBase;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class EmailCampaign
@@ -20,43 +22,67 @@ use ActiveTrail\CampaignBase;
  */
 class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
 
+  protected $campaignPayload;
+
   /**
    * EmailCampaign constructor.
    * @param $apiToken
    */
   public function __construct($apiToken) {
-    parent::__construct($apiToken, EndPoints::$CAMPAIGNS);
+    parent::__construct($apiToken, EndPoints::$CAMPAIGNS_CONTACTS);
+    // Initialize payload structure
+    $updateContainer = new ApiCampaignUpdateContainer('', new ApiCampaignDetails(), new ApiCampaignDesign(),
+      new ApiCampaignTemplate(), new ApiABSettings(), new ApiEcommerceDataList(), []);
+    $this->campaignPayload = new ApiCampaignContactPost($updateContainer, new ApiCampaignContact());
+  }
+
+  public function setSubject ($subject) {
+    $this->getDetails()->subject = $subject;
+    return $this;
+  }
+
+  public function setPreHeader ($preHeader) {
+    // TODO: Implement setPreHeader() method.
+    return $this;
   }
 
   /**
-   * {@inheritdoc}
+   * @param mixed $content
+   * @return static
    */
-  protected function getCampaign() {
-    // TODO: Implement getCampaign() method.
-    return NULL;
+  public function setContent($content) {
+    $this->getCampaign()->campaign->design->content = $content;
+    return $this;
+  }
+
+  public function addContacts($emails) {
+    $contact_ids = [];
+    // Get all contact ids from ActiveTrail
+    foreach ($emails as $key => $email) {
+      /* @var EmailCampaignInterface $client */
+      $id = $this->getContactId($email);
+      if (!empty($id)) {
+        $contact_ids[] = $id;
+      }
+      else {
+        // @todo: throw an exception
+      }
+    }
+    $this->campaignPayload->campaign_contacts->setContactsEmails($emails);
+    $this->campaignPayload->campaign_contacts->setContactsIds($contact_ids);
+    return $this;
   }
 
   /**
-   * Create and Send a new campaign To specific contacts
-   *
-   * @param \ActiveTrail\Api\Campaign\ApiCampaignContactPost $payload
+   * @param $email
    */
-  public function SendNewCampaignToContacts(ApiCampaignContactPost $payload) {
-
-    //Make the Api Call.
-    return $this->client->MakeActiveTrailApiCall(
-      EndPoints::$CAMPAIGNS_CONTACTS['uri'],
-      EndPoints::$CAMPAIGNS_CONTACTS['method'],
-      $payload
-    );
-
-  }
-
-  public function GetMyTemplates() {
-    return $this->client->MakeActiveTrailApiCall(
-      EndPoints::$TEMPLATES['uri'],
-      EndPoints::$TEMPLATES['method']
-    );
+  public function getContactId($email) {
+    $contact = new PostContactContainer();
+    $contact->email = $email;
+    $response = $this->createContact($contact);
+    /* @var Response $response */
+    $json_response = json_decode($response->getBody()->getContents());
+    return !empty($json_response->id) ? $json_response->id : null;
   }
 
   /**
@@ -65,7 +91,7 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
    * @param \ActiveTrail\Api\Contact\PostContactContainer $contact
    * @return string
    */
-  public function CreateContact(PostContactContainer $contact) {
+  public function createContact(PostContactContainer $contact) {
     //Make the Api Call.
     return $this->client->MakeActiveTrailApiCall(
       EndPoints::$CONTACTS['uri'],
@@ -74,37 +100,40 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
     );
   }
 
-  /**
-   * Get payload for creating / updating contacts
-   *
-   * @param $email
-   * @return \ActiveTrail\Api\Contact\PostContactContainer
-   */
-  public function getPostContactContainer($email) {
-    return new PostContactContainer($email);
+  public function getMyTemplates() {
+    return $this->client->MakeActiveTrailApiCall(
+      EndPoints::$TEMPLATES['uri'],
+      EndPoints::$TEMPLATES['method']
+    );
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function getCampaign() {
+    return $this->campaignPayload;
+  }
 
   /**
-   * Get payload for creating and sending a new campaign to provided contacts
-   *
-   * @param $name
-   * @param $subject
-   * @param array $contact_ids
-   * @param array $to_emails
-   * @param null $send_test
-   * @return \ActiveTrail\Api\Campaign\ApiCampaignContactPost
+   * {@inheritdoc}
    */
-  public function getApiCampaignContactPost($name, $subject, array $contact_ids, array $to_emails, $send_test = null) {
-
-    // Create the campagin details
-    $campaign_details = new ApiCampaignDetails($name, $subject);
-    // Create a campaign based on above details
-    $campaign = new ApiCampaignUpdateContainer($campaign_details, $send_test);
-    // Create structure with contacts
-    $campaign_contacts = new ApiCampaignContact($contact_ids, $to_emails);
-    // Create and return the full campaign payload
-    return new ApiCampaignContactPost($campaign, $campaign_contacts);
-
+  public function getDetails() {
+    return $this->getCampaign()->campaign->details;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCampaignScheduling() {
+    return $this->getCampaign()->campaign->a_b_settings->scheduling;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSendNow($send_now = TRUE) {
+    $this->getCampaignScheduling()->send_now = $send_now;
+    return $this;
+  }
+
 }

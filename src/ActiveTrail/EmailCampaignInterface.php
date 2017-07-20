@@ -2,7 +2,6 @@
 
 namespace ActiveTrail;
 
-use ActiveTrail\Api\Campaign\ApiCampaignContactPost;
 use ActiveTrail\Api\Contact\PostContactContainer;
 
 /**
@@ -11,12 +10,30 @@ use ActiveTrail\Api\Contact\PostContactContainer;
  */
 interface EmailCampaignInterface extends CampaignInterface {
 
-  // Campaigns
-  public function SendNewCampaignToContacts(ApiCampaignContactPost $payload);
+  public function addContacts($emails);
 
-  // Contacts
-  public function CreateContact(PostContactContainer $contact);
+  public function setSubject($subject);
 
-  // Templates
-  public function GetMyTemplates();
+  public function setPreHeader($preHeader);
+
+  public function getMyTemplates();
+
+  /**
+   * Returns a contact's Id by email.
+   * If the contact is not found, he is created.
+   *
+   * @param $email
+   * @return \JsonSerializable
+   */
+  public function getContactId($email);
+
+  /**
+   * Creates a contact or returns an existing contact.
+   *
+   * @param \ActiveTrail\Api\Contact\PostContactContainer $contact
+   * @return mixed
+   */
+  public function createContact(PostContactContainer $contact);
+
+
 }

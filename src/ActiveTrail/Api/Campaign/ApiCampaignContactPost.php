@@ -8,14 +8,21 @@ use ActiveTrail\JsonSerializableStruct;
 /**
  * Class ApiCampaignContactPost
  *
- * CREATE AND SEND A NEW CAMPAIGN TO SPECIFIC CONTACTS
+ * Create and send a new campaign to specific contacts
  *
  * @package ActiveTrail\Api\Campaign
  */
 class ApiCampaignContactPost extends JsonSerializableStruct {
 
-  public $campaign; //ApiCampaignUpdateContainer
-  public $campaign_contacts; //ApiCampaignContact
+  /**
+   * @var ApiCampaignUpdateContainer
+   */
+  public $campaign;
+
+  /**
+   * @var ApiCampaignContact
+   */
+  public $campaign_contacts;
 
   /**
    * ApiCampaignContactPost constructor.

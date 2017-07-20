@@ -6,8 +6,8 @@ use ActiveTrail\JsonSerializableStruct;
 
 /**
  * Class PostContactContainer
+ *
  * @package ActiveTrail\Api\Contact
- * @todo: abstract jsonSerialize + null filtering
  */
 class PostContactContainer extends JsonSerializableStruct  {
 
@@ -63,13 +63,5 @@ class PostContactContainer extends JsonSerializableStruct  {
   public $num5; //int
   public $is_do_not_mail; //boolean
   public $is_deleted;
-
-  /**
-   * PostContactContainer constructor.
-   * @param $email
-   */
-  public function __construct($email) {
-    $this->email = $email;
-  } //boolean
 
 }

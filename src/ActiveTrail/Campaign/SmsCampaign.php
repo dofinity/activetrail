@@ -59,23 +59,6 @@ class SmsCampaign extends CampaignBase implements SmsCampaignInterface {
   /**
    * {@inheritdoc}
    */
-  public function setSendNow($send_now = TRUE) {
-    $this->getCampaignScheduling()->send_now = $send_now;
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setScheduledDate(\DateTime $scheduled_date) {
-    $scheduled_date->setTimezone(new \DateTimeZone('UTC'));
-    $this->getCampaignScheduling()->scheduled_date_utc = $scheduled_date->format('Y-m-d H:i:s');
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUnsubscribeText($unsubscribe_text) {
     $this->getDetails()->unsubscribe_text = $unsubscribe_text;
     return $this;
@@ -86,14 +69,6 @@ class SmsCampaign extends CampaignBase implements SmsCampaignInterface {
    */
   public function setCanUnsubscribe($can_unsubscribe = TRUE) {
     $this->getDetails()->can_unsubscribe = $can_unsubscribe;
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setName($name) {
-    $this->getDetails()->name = $name;
     return $this;
   }
 

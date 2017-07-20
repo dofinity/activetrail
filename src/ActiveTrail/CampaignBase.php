@@ -15,6 +15,7 @@ abstract class CampaignBase implements CampaignInterface, \JsonSerializable {
   /**
    * ActiveTrailApi constructor.
    * @param $apiToken
+   * @param $campaign_endpoint
    */
   public function __construct($apiToken, $campaign_endpoint) {
     $this->client = new HttpClient($apiToken);
@@ -27,6 +28,34 @@ abstract class CampaignBase implements CampaignInterface, \JsonSerializable {
       $this->campaignEndpoint['method'],
       $this
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSendNow($send_now = TRUE) {
+    $this->getCampaignScheduling()->send_now = $send_now;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setScheduledDate(\DateTime $scheduled_date) {
+    $scheduled_date->setTimezone(new \DateTimeZone('UTC'));
+    $this->getCampaignScheduling()->scheduled_date_utc = $scheduled_date->format('Y-m-d H:i:s');
+    return $this;
+  }
+
+  /**
+   * Sets the campaign name
+   *
+   * @param mixed $name
+   * @return $this
+   */
+  public function setName($name) {
+    $this->getDetails()->name = $name;
+    return $this;
   }
 
   /**
