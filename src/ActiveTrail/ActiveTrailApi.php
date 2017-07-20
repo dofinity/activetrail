@@ -50,7 +50,10 @@ class ActiveTrailApi implements ActiveTrailApiInterface {
   }
 
   public function GetMyTemplates() {
-    // TODO: Implement GetMyTemplates() method.
+    return $this->client->MakeActiveTrailApiCall(
+      EndPoints::$CAMPAIGNS_CONTACTS['uri'],
+      EndPoints::$CAMPAIGNS_CONTACTS['method']
+    );
   }
 
   /**

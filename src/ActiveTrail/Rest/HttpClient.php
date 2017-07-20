@@ -29,7 +29,7 @@ class HttpClient {
    * @param $payload
    * @return string
    */
-  public function MakeActiveTrailApiCall($endpoint, $method, $payload){
+  public function MakeActiveTrailApiCall($endpoint, $method, $payload = null){
 
     // First, make sure we have an authorization token
     if (empty($this->apiToken)) {
@@ -38,12 +38,18 @@ class HttpClient {
 
     $client = new Client([ 'base_uri' => EndPoints::$API_BASE['uri'] ]);
 
-    return $client->request($method, $endpoint, [
-      'json' => $payload,
+    $request_options = [
       'connect_timeout' => self::CONNECTION_TIMEOUT,
       'timeout' => self::REQUEST_TIMEOUT,
       'headers' => [ 'Authorization' => 'Basic ' . $this->apiToken ] // Add Authorization header based on token
-    ]);
+    ];
+
+    // Add payload if one was provided.
+    if (!empty($payload)) {
+      $request_options['json'] = $payload;
+    }
+
+    return $client->request($method, $endpoint, $request_options);
 
   }
 }
