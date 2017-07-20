@@ -16,6 +16,7 @@ abstract class EndPoints {
   public static $CAMPAIGNS = ['method' => 'post', 'uri' => 'campaigns']; //Create and return a new campaign
   public static $CAMPAIGNS_ID_CONTACTS = ['method' => 'put', 'uri' => 'campaigns/{id}/Contacts']; //Send existing campaign To specific contacts
   public static $CAMPAIGNS_CONTACTS = ['method' => 'post', 'uri' => 'campaigns/Contacts']; //Create and Send a new campaign To specific contacts
+  public static $SMS_CAMPAIGNS = ['method' => 'post', 'uri' => 'smscampaign/OperationalMessage']; //Create and return a new sms campaign
 
   //Templates
   public static $TEMPLATES = ['method' => 'get', 'uri' => 'templates']; //Get all of your templates that are saved in "My templates"

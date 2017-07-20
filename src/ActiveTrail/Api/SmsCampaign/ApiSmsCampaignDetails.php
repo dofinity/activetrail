@@ -4,12 +4,12 @@ namespace ActiveTrail\Api\SmsCampaign;
 
 use ActiveTrail\JsonSerializableStruct;
 
-class ApiSMSCampaignDetails extends JsonSerializableStruct {
+class ApiSmsCampaignDetails extends JsonSerializableStruct {
 
   public $unsubscribe_text; //String
   public $can_unsubscribe; //boolean
   public $name; //String
   public $from_name; //String
-  public $content; //String
-  
+  public $content;
+
 }

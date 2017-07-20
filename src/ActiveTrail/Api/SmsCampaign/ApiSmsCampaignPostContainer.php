@@ -7,7 +7,7 @@ use ActiveTrail\JsonSerializableStruct;
 class ApiSmsCampaignPostContainer extends JsonSerializableStruct {
 
   /**
-   * @var \ActiveTrail\Api\SmsCampaign\ApiSMSCampaignDetails
+   * @var \ActiveTrail\Api\SmsCampaign\ApiSmsCampaignDetails
    */
   public $details; //Details
 
@@ -17,17 +17,17 @@ class ApiSmsCampaignPostContainer extends JsonSerializableStruct {
   public $scheduling; //Scheduling
 
   /**
-   * @var \ActiveTrail\Api\SmsCampaign\ApiSMSMobile[]
+   * @var \ActiveTrail\Api\SmsCampaign\ApiSmsMobile[]
    */
   public $mobiles; //array(ApiSMSMobile)
 
   /**
    * ApiSmsCampaignPostContainer constructor.
-   * @param \ActiveTrail\Api\SmsCampaign\ApiSMSCampaignDetails $details
+   * @param \ActiveTrail\Api\SmsCampaign\ApiSmsCampaignDetails $details
    * @param \ActiveTrail\Api\SmsCampaign\ApiSmsCampaignScheduling $scheduling
-   * @param \ActiveTrail\Api\SmsCampaign\ApiSMSMobile[] $mobiles
+   * @param \ActiveTrail\Api\SmsCampaign\ApiSmsMobile[] $mobiles
    */
-  public function __construct (ApiSMSCampaignDetails $details, ApiSmsCampaignScheduling $scheduling, array $mobiles) {
+  public function __construct (ApiSmsCampaignDetails $details, ApiSmsCampaignScheduling $scheduling, array $mobiles) {
     $this->details = $details;
     $this->scheduling = $scheduling;
     $this->mobiles = $mobiles;
