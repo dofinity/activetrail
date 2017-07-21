@@ -20,6 +20,8 @@ interface EmailCampaignInterface extends CampaignInterface {
 
   public function getMyTemplates();
 
+  public function getTemplateDetails($template_id);
+
   /**
    * Returns a contact's Id by email.
    * If the contact is not found, he is created.

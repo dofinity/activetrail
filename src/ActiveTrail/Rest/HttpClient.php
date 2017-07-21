@@ -1,6 +1,7 @@
 <?php
 
 namespace ActiveTrail\Rest;
+use ActiveTrail\Exception\NoApiTokenException;
 use GuzzleHttp\Client;
 
 /**
@@ -27,13 +28,22 @@ class HttpClient {
    * @param $endpoint
    * @param $method
    * @param $payload
-   * @return string
+   * @param null $endpoint_params
+   * @return \GuzzleHttp\Psr7\Response
+   * @throws \Exception
    */
-  public function MakeActiveTrailApiCall($endpoint, $method, $payload = null){
+  public function MakeActiveTrailApiCall($endpoint, $method, $payload = null, $endpoint_params = null, $extra_headers = []){
 
     // First, make sure we have an authorization token
     if (empty($this->apiToken)) {
-      throw new \Exception('You must provide an Api Token.');
+      throw new NoApiTokenException('You must provide an Api Token.');
+    }
+
+    // Process any endpoint params
+    if (!empty($endpoint_params)) {
+      foreach ($endpoint_params as $param_name => $param_value) {
+        $endpoint = str_replace(':' . $param_name, $param_value, $endpoint);
+      }
     }
 
     $client = new Client([ 'base_uri' => EndPoints::$API_BASE['uri'] ]);
@@ -41,8 +51,16 @@ class HttpClient {
     $request_options = [
       'connect_timeout' => self::CONNECTION_TIMEOUT,
       'timeout' => self::REQUEST_TIMEOUT,
-      'headers' => [ 'Authorization' => 'Basic ' . $this->apiToken ] // Add Authorization header based on token
+      'headers' => []
     ];
+
+    // Add additional headers if any were passed.
+    if (!empty($extra_headers)) {
+      $request_options['headers'] = $extra_headers;
+    }
+
+    // Add authorization header to top
+    $request_options['headers'] = array_merge(['Authorization' => 'Basic ' . $this->apiToken], $request_options['headers']);
 
     // Add payload if one was provided.
     if (!empty($payload)) {

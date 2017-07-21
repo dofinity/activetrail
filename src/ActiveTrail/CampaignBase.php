@@ -12,6 +12,8 @@ abstract class CampaignBase implements CampaignInterface, \JsonSerializable {
 
   protected $campaignEndpoint;
 
+  protected $extra_headers;
+
   /**
    * ActiveTrailApi constructor.
    * @param $apiToken
@@ -20,13 +22,16 @@ abstract class CampaignBase implements CampaignInterface, \JsonSerializable {
   public function __construct($apiToken, $campaign_endpoint) {
     $this->client = new HttpClient($apiToken);
     $this->campaignEndpoint = $campaign_endpoint;
+    $this->extra_headers = [];
   }
 
   public function sendCampaign() {
     $this->client->MakeActiveTrailApiCall(
       $this->campaignEndpoint['uri'],
       $this->campaignEndpoint['method'],
-      $this
+      $this,
+      null,
+      $this->extra_headers
     );
   }
 

@@ -12,6 +12,7 @@ use ActiveTrail\Api\Contact\PostContactContainer;
 use ActiveTrail\Api\Contact\ApiCampaignContact;
 use ActiveTrail\Api\Ecommerce\ApiEcommerceDataList;
 use ActiveTrail\EmailCampaignInterface;
+use ActiveTrail\Exception\ContactIdNotFoundException;
 use ActiveTrail\Rest\EndPoints;
 use ActiveTrail\CampaignBase;
 use GuzzleHttp\Psr7\Response;
@@ -65,7 +66,7 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
         $contact_ids[] = $id;
       }
       else {
-        // @todo: throw an exception
+        throw new ContactIdNotFoundException();
       }
     }
     $this->campaignPayload->campaign_contacts->setContactsEmails($emails);
@@ -74,6 +75,7 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
   }
 
   /**
+   * Get an existing contact Id, or create a new contact and returns its Id.
    * @param $email
    */
   public function getContactId($email) {
@@ -81,8 +83,8 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
     $contact->email = $email;
     $response = $this->createContact($contact);
     /* @var Response $response */
-    $json_response = json_decode($response->getBody()->getContents());
-    return !empty($json_response->id) ? $json_response->id : null;
+    $decoded_response = $this->getDecodedJsonResponse($response);
+    return !empty($decoded_response->id) ? $decoded_response->id : null;
   }
 
   /**
@@ -137,9 +139,44 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
   }
 
   /**
+   * Sets the template Id, retreives the subject from the campaign details,
+   * and un-sets the content.
+   *
+   * @todo: Check with ActiveTrial why the template's subject is not automatically derived from the template (currently it is required)
+   * @todo: Check with ActiveTrail why the fromme and frommail, set in the template settings via the UI, do not affect the From: and Reply-To: headers, or how these can be set via the API.
    * @param $template_id
    */
   public function setTemplate ($template_id) {
-    $this->getCampaign()->campaign->template->id = $template_id;
+
+    // Fetch template details
+    /* @var \ActiveTrail\Api\Campaign\ApiCampaignTemplateBase $template_details */
+    $template_details = $this->getTemplateDetails($template_id);
+    // Set template Id
+    $this->getCampaign()->campaign->template->id = (int)$template_id;
+    // Override email details according to template details
+    if (!empty($template_details->mail_subject)) {
+      $this->getCampaign()->campaign->details->subject = $template_details->mail_subject;
+    }
+    // Make sure content (otherwise it overrides the template)
+    $this->setContent(NULL);
+  }
+
+  public function getTemplateDetails($template_id) {
+    $template_details = $this->client->MakeActiveTrailApiCall(
+      EndPoints::$TEMPLATE_DETAILS['uri'],
+      EndPoints::$TEMPLATE_DETAILS['method'],
+      null,
+      ['id' => $template_id]
+    );
+    return $this->getDecodedJsonResponse($template_details);
+  }
+
+  /**
+   * Helper function to extract the guzzle response and decode it.
+   * @param \GuzzleHttp\Psr7\Response $response
+   * @return mixed
+   */
+  private function getDecodedJsonResponse(Response $response) {
+    return json_decode($response->getBody()->getContents());
   }
 }
