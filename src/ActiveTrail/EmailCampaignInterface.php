@@ -16,6 +16,8 @@ interface EmailCampaignInterface extends CampaignInterface {
 
   public function setPreHeader($preHeader);
 
+  public function setTemplate($template_id);
+
   public function getMyTemplates();
 
   /**

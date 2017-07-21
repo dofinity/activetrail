@@ -136,4 +136,10 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
     return $this;
   }
 
+  /**
+   * @param $template_id
+   */
+  public function setTemplate ($template_id) {
+    $this->getCampaign()->campaign->template->id = $template_id;
+  }
 }
