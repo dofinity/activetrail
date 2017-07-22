@@ -11,6 +11,7 @@ use ActiveTrail\Api\Campaign\ApiCampaignUpdateContainer;
 use ActiveTrail\Api\Contact\PostContactContainer;
 use ActiveTrail\Api\Contact\ApiCampaignContact;
 use ActiveTrail\Api\Ecommerce\ApiEcommerceDataList;
+use ActiveTrail\Api\Utility\Pair;
 use ActiveTrail\EmailCampaignInterface;
 use ActiveTrail\Exception\ContactIdNotFoundException;
 use ActiveTrail\Rest\EndPoints;
@@ -142,14 +143,13 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
    * Sets the template Id, retreives the subject from the campaign details,
    * and un-sets the content.
    *
-   * @todo: Check with ActiveTrial why the template's subject is not automatically derived from the template (currently it is required)
-   * @todo: Check with ActiveTrail why the fromme and frommail, set in the template settings via the UI, do not affect the From: and Reply-To: headers, or how these can be set via the API.
+   * @todo: Remove workaround below which makes an additional request to override subject.
+   *
    * @param $template_id
    */
   public function setTemplate ($template_id) {
 
     // Fetch template details
-    /* @var \ActiveTrail\Api\Campaign\ApiCampaignTemplateBase $template_details */
     $template_details = $this->getTemplateDetails($template_id);
     // Set template Id
     $this->getCampaign()->campaign->template->id = (int)$template_id;
@@ -161,14 +161,37 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
     $this->setContent(NULL);
   }
 
+  /**
+   * Gets a given template's details by Id.
+   *
+   * @param $template_id
+   * @return mixed
+   */
   public function getTemplateDetails($template_id) {
     $template_details = $this->client->MakeActiveTrailApiCall(
       EndPoints::$TEMPLATE_DETAILS['uri'],
       EndPoints::$TEMPLATE_DETAILS['method'],
-      null,
+      NULL,
       ['id' => $template_id]
     );
     return $this->getDecodedJsonResponse($template_details);
+  }
+
+  /**
+   * Sets parameters to be passed to an ActiveTrail template.
+   * Keys are wrapped by [ ], to maintain consistent placeholders in ActiveTrail.
+   *
+   * @param $params
+   */
+  public function setTemplateParams($params) {
+    if (!empty($params) && is_array($params)) {
+      foreach ($params as $key => $value) {
+        $this->getCampaign()->campaign->pairs[] = new Pair(
+          "[$key]",
+          $value
+        );
+      }
+    }
   }
 
   /**
@@ -179,4 +202,5 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
   private function getDecodedJsonResponse(Response $response) {
     return json_decode($response->getBody()->getContents());
   }
+
 }

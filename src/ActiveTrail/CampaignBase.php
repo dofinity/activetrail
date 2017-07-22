@@ -26,7 +26,7 @@ abstract class CampaignBase implements CampaignInterface, \JsonSerializable {
   }
 
   public function sendCampaign() {
-    $this->client->MakeActiveTrailApiCall(
+    return $this->client->MakeActiveTrailApiCall(
       $this->campaignEndpoint['uri'],
       $this->campaignEndpoint['method'],
       $this,

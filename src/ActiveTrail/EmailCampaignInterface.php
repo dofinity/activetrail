@@ -22,6 +22,8 @@ interface EmailCampaignInterface extends CampaignInterface {
 
   public function getTemplateDetails($template_id);
 
+  public function setTemplateParams($params);
+
   /**
    * Returns a contact's Id by email.
    * If the contact is not found, he is created.
