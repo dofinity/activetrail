@@ -27,6 +27,15 @@ class SmsCampaign extends CampaignBase implements SmsCampaignInterface {
   }
 
   /**
+   * Get the SMS content
+   *
+   * @return string
+   */
+  public function getContent() {
+    return $this->getDetails()->content;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getDetails() {
