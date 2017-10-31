@@ -18,11 +18,14 @@ abstract class EndPoints {
   public static $CAMPAIGNS_CONTACTS = ['method' => 'post', 'uri' => 'campaigns/Contacts']; //Create and Send a new campaign To specific contacts
   public static $SMS_CAMPAIGNS = ['method' => 'post', 'uri' => 'smscampaign/OperationalMessage']; //Create and return a new sms campaign
 
-  //Templates
+  // Templates
   public static $TEMPLATES = ['method' => 'get', 'uri' => 'templates']; //Get all of your templates that are saved in "My templates"
   public static $TEMPLATE_DETAILS = ['method' => 'get', 'uri' => 'templates/:id']; //Get the details for a template by it's Id
 
-  //Contacts
+  // Contacts
   public static $CONTACTS = ['method' => 'post', 'uri' => 'contacts']; //Get all of your templates that are saved in "My templates"
+
+  // Groups
+  public static $GROUPS_MEMBER = ['method' => 'post', 'uri' => 'groups/:id/members']; // Get all of your templates that are saved in "My templates"
 
 }
