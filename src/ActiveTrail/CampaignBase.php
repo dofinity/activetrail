@@ -2,35 +2,30 @@
 
 namespace ActiveTrail;
 
-use ActiveTrail\Rest\HttpClient;
-
-abstract class CampaignBase implements CampaignInterface, \JsonSerializable {
-  
-  protected $client;
+abstract class CampaignBase extends ActiveTrailBase implements CampaignInterface, \JsonSerializable {
 
   protected $payload;
-
-  protected $campaignEndpoint;
 
   protected $extra_headers;
 
   /**
    * ActiveTrailApi constructor.
-   * @param $apiToken
+   *
+   * @param $api_token
    * @param $campaign_endpoint
    */
-  public function __construct($apiToken, $campaign_endpoint) {
-    $this->client = new HttpClient($apiToken);
-    $this->campaignEndpoint = $campaign_endpoint;
+  public function __construct($api_token, $campaign_endpoint) {
+    parent::__construct($api_token, $campaign_endpoint);
+
     $this->extra_headers = [];
   }
 
   public function sendCampaign() {
     return $this->client->MakeActiveTrailApiCall(
-      $this->campaignEndpoint['uri'],
-      $this->campaignEndpoint['method'],
+      $this->endpoint['uri'],
+      $this->endpoint['method'],
       $this,
-      null,
+      NULL,
       $this->extra_headers
     );
   }
@@ -56,6 +51,7 @@ abstract class CampaignBase implements CampaignInterface, \JsonSerializable {
    * Sets the campaign name
    *
    * @param mixed $name
+   *
    * @return $this
    */
   public function setName($name) {
@@ -71,7 +67,7 @@ abstract class CampaignBase implements CampaignInterface, \JsonSerializable {
   /**
    * {@inheritdoc}
    */
-  function jsonSerialize() {
+  public function jsonSerialize() {
     return $this->getCampaign()->jsonSerialize();
   }
 

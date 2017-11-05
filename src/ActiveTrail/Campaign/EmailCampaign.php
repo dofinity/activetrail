@@ -28,22 +28,35 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
 
   /**
    * EmailCampaign constructor.
-   * @param $apiToken
+   *
+   * @param $api_token
    */
-  public function __construct($apiToken) {
-    parent::__construct($apiToken, EndPoints::$CAMPAIGNS_CONTACTS);
+  public function __construct($api_token) {
+    parent::__construct($api_token, EndPoints::$CAMPAIGNS_CONTACTS);
     // Initialize payload structure
     $updateContainer = new ApiCampaignUpdateContainer('', new ApiCampaignDetails(), new ApiCampaignDesign(),
       new ApiCampaignTemplate(), new ApiABSettings(), new ApiEcommerceDataList(), []);
     $this->campaignPayload = new ApiCampaignContactPost($updateContainer, new ApiCampaignContact());
   }
 
-  public function setSubject ($subject) {
+  /**
+   * Sets the email's subject.
+   * @param $subject
+   *
+   * @return $this
+   */
+  public function setSubject($subject) {
     $this->getDetails()->subject = $subject;
     return $this;
   }
 
-  public function setPreHeader ($preHeader) {
+  /**
+   * Sets the email's preheader.
+   * @param $preHeader
+   *
+   * @return $this
+   */
+  public function setPreHeader($preHeader) {
     // TODO: Implement setPreHeader() method.
     return $this;
   }
@@ -57,6 +70,13 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
     return $this;
   }
 
+  /**
+   * Adds a given list of emails to an email campaign.
+   * @param $emails
+   *
+   * @return $this
+   * @throws \ActiveTrail\Exception\ContactIdNotFoundException
+   */
   public function addContacts($emails) {
     $contact_ids = [];
     // Get all contact ids from ActiveTrail
@@ -103,6 +123,10 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
     );
   }
 
+  /**
+   * Returns all of the templates registered for the account in ActiveTrail.
+   * @return \GuzzleHttp\Psr7\Response
+   */
   public function getMyTemplates() {
     return $this->client->MakeActiveTrailApiCall(
       EndPoints::$TEMPLATES['uri'],
@@ -143,20 +167,12 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
    * Sets the template Id, retreives the subject from the campaign details,
    * and un-sets the content.
    *
-   * @todo: Remove workaround below which makes an additional request to override subject.
    *
    * @param $template_id
    */
-  public function setTemplate ($template_id) {
-
-    // Fetch template details
-    $template_details = $this->getTemplateDetails($template_id);
+  public function setTemplate($template_id) {
     // Set template Id
     $this->getCampaign()->campaign->template->id = (int)$template_id;
-    // Override email details according to template details
-    if (!empty($template_details->mail_subject)) {
-      $this->getCampaign()->campaign->details->subject = $template_details->mail_subject;
-    }
     // Make sure content (otherwise it overrides the template)
     $this->setContent(NULL);
   }

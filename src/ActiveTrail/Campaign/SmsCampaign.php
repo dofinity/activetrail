@@ -19,10 +19,11 @@ class SmsCampaign extends CampaignBase implements SmsCampaignInterface {
 
   /**
    * SmsCampaign constructor.
-   * @param string $apiToken
+   *
+   * @param string $api_token
    */
-  public function __construct($apiToken) {
-    parent::__construct($apiToken, EndPoints::$SMS_CAMPAIGNS);
+  public function __construct($api_token) {
+    parent::__construct($api_token, EndPoints::$SMS_CAMPAIGNS);
     $this->campaignContainer = new ApiSmsCampaignPostContainer(new ApiSmsCampaignDetails(), new ApiSmsCampaignScheduling(), []);
   }
 
