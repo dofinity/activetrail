@@ -2,11 +2,7 @@
 
 namespace ActiveTrail;
 
-use ActiveTrail\Rest\HttpClient;
-
 abstract class CampaignBase extends ActiveTrailBase implements CampaignInterface, \JsonSerializable {
-
-  protected $client;
 
   protected $payload;
 
@@ -29,7 +25,7 @@ abstract class CampaignBase extends ActiveTrailBase implements CampaignInterface
       $this->endpoint['uri'],
       $this->endpoint['method'],
       $this,
-      null,
+      NULL,
       $this->extra_headers
     );
   }
@@ -55,6 +51,7 @@ abstract class CampaignBase extends ActiveTrailBase implements CampaignInterface
    * Sets the campaign name
    *
    * @param mixed $name
+   *
    * @return $this
    */
   public function setName($name) {

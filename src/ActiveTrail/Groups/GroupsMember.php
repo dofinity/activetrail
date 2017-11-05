@@ -2,29 +2,25 @@
 
 namespace ActiveTrail\Groups;
 
+use ActiveTrail\ActiveTrailBase;
 use ActiveTrail\Api\Contact\PostContactTriggerContainer;
 use ActiveTrail\GroupsMemberInterface;
-use ActiveTrail\JsonSerializableStruct;
 use ActiveTrail\Rest\EndPoints;
-use ActiveTrail\Rest\HttpClient;
-use GuzzleHttp\Psr7\Response;
 
 /**
  * Class GroupsMember
+ *
  * @package ActiveTrail\Gropus
  */
-class GroupsMember extends JsonSerializableStruct implements GroupsMemberInterface {
-
-  protected $client;
-
-//  protected $contactContainer;
+class GroupsMember extends ActiveTrailBase implements GroupsMemberInterface {
 
   /**
    * ActiveTrailApi constructor.
-   * @param $api_token
+   *
+   * @param string $api_token
    */
   public function __construct($api_token) {
-    $this->client = new HttpClient($api_token);
+    parent::__construct($api_token, EndPoints::$GROUPS_MEMBER);
   }
 
   /**
@@ -32,7 +28,8 @@ class GroupsMember extends JsonSerializableStruct implements GroupsMemberInterfa
    *
    * @param \ActiveTrail\Api\Contact\PostContactTriggerContainer $contact
    * @param int $group_id
-   * @return string
+   *
+   * @return mixed
    */
   public function createContact(PostContactTriggerContainer $contact, $group_id) {
     if (empty($contact->subscribe_ip)) {
@@ -41,21 +38,12 @@ class GroupsMember extends JsonSerializableStruct implements GroupsMemberInterfa
 
     //Make the Api Call.
     $contact_response = $this->client->MakeActiveTrailApiCall(
-      EndPoints::$GROUPS_MEMBER['uri'],
-      EndPoints::$GROUPS_MEMBER['method'],
+      $this->endpoint['uri'],
+      $this->endpoint['method'],
       $contact,
       ['id' => $group_id]
     );
     return $this->getDecodedJsonResponse($contact_response);
-  }
-
-  /**
-   * Helper function to extract the guzzle response and decode it.
-   * @param \GuzzleHttp\Psr7\Response $response
-   * @return mixed
-   */
-  private function getDecodedJsonResponse(Response $response) {
-    return json_decode($response->getBody()->getContents());
   }
 
 }
