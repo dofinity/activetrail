@@ -215,7 +215,7 @@ class EmailCampaign extends CampaignBase implements EmailCampaignInterface {
    * @param \GuzzleHttp\Psr7\Response $response
    * @return mixed
    */
-  private function getDecodedJsonResponse(Response $response) {
+  protected function getDecodedJsonResponse(Response $response) {
     return json_decode($response->getBody()->getContents());
   }
 
