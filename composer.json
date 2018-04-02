@@ -4,7 +4,7 @@
     "description": "PHP Library for integrating the ActiveTrail marketing platform",
     "keywords": ["PHP", "email", "marketing", "commerce"],
     "homepage": "http://dofinity.com/modules/activetrail",
-    "license": "GPL2",
+    "license": "MIT",
     "require": {
         "guzzlehttp/guzzle": "^6.2"
     },
