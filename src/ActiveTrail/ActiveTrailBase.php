@@ -39,4 +39,26 @@ abstract class ActiveTrailBase {
     return json_decode($response->getBody()->getContents());
   }
 
+  /**
+   * Wraps the http client MakeActiveTrailApiCall method.
+   *
+   * @param mixed $payload
+   * @param array|null $endpoint_params
+   *
+   * @return \GuzzleHttp\Psr7\Response
+   *
+   * @throws \Exception
+   *
+   * @see \ActiveTrail\Rest\HttpClient::MakeActiveTrailApiCall()
+   */
+  protected function makeApiCall($payload = null, $endpoint_params = null, $extra_headers = []) {
+    return $this->client->MakeActiveTrailApiCall(
+      $this->endpoint['uri'],
+      $this->endpoint['method'],
+      $payload,
+      $endpoint_params,
+      $extra_headers
+    );
+  }
+
 }
