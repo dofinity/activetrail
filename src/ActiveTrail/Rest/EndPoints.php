@@ -23,7 +23,8 @@ abstract class EndPoints {
   public static $TEMPLATE_DETAILS = ['method' => 'get', 'uri' => 'templates/:id']; //Get the details for a template by it's Id
 
   // Contacts
-  public static $CONTACTS = ['method' => 'post', 'uri' => 'contacts']; //Get all of your templates that are saved in "My templates"
+  public static $CONTACTS = ['method' => 'post', 'uri' => 'contacts']; // Create and return a new contact
+  public static $CONTACTS_IMPORT = ['method' => 'post', 'uri' => 'contacts/import']; // Import contacts
 
   // Groups
   public static $GROUPS_MEMBER = ['method' => 'post', 'uri' => 'groups/:id/members']; // Get all of your templates that are saved in "My templates"
