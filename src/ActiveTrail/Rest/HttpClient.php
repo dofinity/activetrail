@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 class HttpClient {
 
   const CONNECTION_TIMEOUT = 5;
-  const REQUEST_TIMEOUT = 10;
+  const REQUEST_TIMEOUT = 60;
   private $apiToken;
 
   /**
